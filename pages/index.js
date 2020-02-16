@@ -13,22 +13,52 @@ export default () => {
     "demo-kanban-board"
   );
 
-  function onDrag(e, position) {
+  function onDrag(e, position, index) {
     const { x, y } = position;
     setSharedState(prevDoc => {
-      // prevDoc.block = { position: { x, y } };
-      prevDoc.position = { x, y };
+      prevDoc.boards[index].position = { x, y };
     });
   }
+
+  function createBoard() {
+    setSharedState(prevDoc => {
+      if (!Array.isArray(prevDoc.boards)) {
+        prevDoc.boards = [];
+      }
+      prevDoc.boards.push({ text: "", position: { x: 0, y: 0 } });
+    });
+  }
+
+  function deleteBoard() {
+    setSharedState(prevDoc => {
+      prevDoc.boards.pop();
+    });
+  }
+
+  const mappedBoards = (sharedState.boards || []).map(function(item, index) {
+    return (
+      <Block
+        setPosition={sharedState.boards[index].position}
+        onDrag={(e, pos) => onDrag(e, pos, index)}
+      />
+    );
+  });
 
   return (
     <div>
       <h1>Kanban Board Demo</h1>
+      <button onClick={createBoard}>Create Board</button>
+      <button onClick={deleteBoard}>Delete Board</button>
 
-      <Block
+      {/* <Block
         setPosition={sharedState.position}
         onDrag={(e, pos) => onDrag(e, pos)}
-      />
+      /> */}
+      {mappedBoards}
     </div>
   );
 };
+
+// pass in text
+// pass in position
+//{[{text, position}, {text, position}]}

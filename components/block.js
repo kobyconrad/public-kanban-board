@@ -12,10 +12,10 @@ function Block(props) {
       onDrag={props.onDrag}
       bounds={props.bounds}
     >
-      <div>
+      <div className="blockContainer">
         {props.blockTitle || "Blocki Boi"}
         <style jsx>{`
-          div {
+          .blockContainer {
             background-color: blue;
             width: 200px;
             height: 200px;
