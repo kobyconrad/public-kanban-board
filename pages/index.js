@@ -1,27 +1,34 @@
 import RoomService from "@roomservice/browser";
 import { useSharedState } from "@roomservice/react";
 import React from "react";
+import Block from "../components/block";
 
 const client = new RoomService({
   authUrl: "http://localhost:3000/api/roomservice"
 });
 
 export default () => {
-  const [sharedState, setSharedState] = useSharedState(client, "my-room");
+  const [sharedState, setSharedState] = useSharedState(
+    client,
+    "demo-kanban-board"
+  );
 
-  function onClick() {
+  function onDrag(e, position) {
+    const { x, y } = position;
     setSharedState(prevDoc => {
-      prevDoc.number = Math.floor(Math.random() * 100);
+      // prevDoc.block = { position: { x, y } };
+      prevDoc.position = { x, y };
     });
   }
 
   return (
     <div>
-      <h1>Open multiple browser windows!</h1>
+      <h1>Kanban Board Demo</h1>
 
-      <p>{sharedState.number || 0}</p>
-
-      <button onClick={onClick}>Pick Random Number</button>
+      <Block
+        setPosition={sharedState.position}
+        onDrag={(e, pos) => onDrag(e, pos)}
+      />
     </div>
   );
 };
