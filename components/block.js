@@ -18,6 +18,7 @@ function Block(props) {
       onDrag={props.onDrag}
       bounds={props.bounds}
       cancel="strong"
+      enableUserSelectHack={false}
     >
       <div className="blockContainer">
         <textarea
