@@ -16,7 +16,6 @@ export default () => {
     client,
     "demo-kanban-board-text-state"
   );
-  const [state, setState] = useState("");
 
   function onDrag(e, position, index) {
     const { x, y } = position;
@@ -41,8 +40,15 @@ export default () => {
   }
 
   function handleChange(event, index) {
-    setTextState(prevDoc => {
-      prevDoc.event = event.target.value;
+    // setTextState(prevDoc => {
+    //   prevDoc.event = event.target.value;
+    // });
+
+    setSharedState(prevDoc => {
+      if (typeof prevDoc.boards[index] === "undefined") {
+        prevDoc.boards[index] = {};
+      }
+      prevDoc.boards[index].event = event.target.value;
     });
   }
 
@@ -51,7 +57,8 @@ export default () => {
       <Block
         setPosition={sharedState.boards[index].position}
         onDrag={(e, pos) => onDrag(e, pos, index)}
-        blockValue={textState.event || ""}
+        //blockValue={textState.event || ""}
+        blockValue={sharedState.boards[index].event || ""}
         blockOnChange={function(event) {
           handleChange(event);
         }}
@@ -65,17 +72,6 @@ export default () => {
       <button onClick={createBoard}>Create Board</button>
       <button onClick={deleteBoard}>Delete Board</button>
 
-      <textarea
-        placeholder="Give a man a mask, and he will tweet the truth.."
-        type="text"
-        value={textState.event || ""}
-        onChange={handleChange}
-      ></textarea>
-
-      {/* <Block
-        setPosition={sharedState.position}
-        onDrag={(e, pos) => onDrag(e, pos)}
-      /> */}
       {mappedBoards}
     </div>
   );
