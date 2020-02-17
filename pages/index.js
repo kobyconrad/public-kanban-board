@@ -43,11 +43,11 @@ export default () => {
     // setTextState(prevDoc => {
     //   prevDoc.event = event.target.value;
     // });
-
+    console.log(index);
     setSharedState(prevDoc => {
-      if (typeof prevDoc.boards[index] === "undefined") {
-        prevDoc.boards[index] = {};
-      }
+      // if (typeof prevDoc.boards[index] === "undefined") {
+      //   prevDoc.boards[index] = {};
+      // }
       prevDoc.boards[index].event = event.target.value;
     });
   }
@@ -60,7 +60,7 @@ export default () => {
         //blockValue={textState.event || ""}
         blockValue={sharedState.boards[index].event || ""}
         blockOnChange={function(event) {
-          handleChange(event);
+          handleChange(event, index);
         }}
       />
     );
