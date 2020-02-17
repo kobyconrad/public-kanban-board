@@ -43,6 +43,7 @@ function Block(props) {
 
         <style jsx>{`
           .blockContainer {
+            position: absolute;
             background-color: #ebecf0;
             width: 250px;
             min-height: 70px;
