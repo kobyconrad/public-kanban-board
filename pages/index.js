@@ -1,21 +1,10 @@
-import RoomService from "@roomservice/browser";
-import { useSharedState } from "@roomservice/react";
+import { useSharedState, RoomServiceProvider } from "@roomservice/react";
 import React, { useState } from "react";
 import Block from "../components/block";
+import Button from "../components/button";
 
-const client = new RoomService({
-  authUrl: "http://localhost:3000/api/roomservice"
-});
-
-export default () => {
-  const [sharedState, setSharedState] = useSharedState(
-    client,
-    "demo-kanban-board"
-  );
-  const [textState, setTextState] = useSharedState(
-    client,
-    "demo-kanban-board-text-state"
-  );
+const App = () => {
+  const [sharedState, setSharedState] = useSharedState("demo-kanban-board");
 
   function onDrag(e, position, index) {
     const { x, y } = position;
@@ -40,14 +29,11 @@ export default () => {
   }
 
   function handleChange(event, index) {
-    // setTextState(prevDoc => {
-    //   prevDoc.event = event.target.value;
-    // });
     console.log(index);
     setSharedState(prevDoc => {
-      // if (typeof prevDoc.boards[index] === "undefined") {
-      //   prevDoc.boards[index] = {};
-      // }
+      if (!prevDoc.boards) {
+        return;
+      }
       prevDoc.boards[index].event = event.target.value;
     });
   }
@@ -68,12 +54,88 @@ export default () => {
 
   return (
     <div>
-      <h1>Kanban Board Demo</h1>
-      <button onClick={createBoard}>Create Board</button>
-      <button onClick={deleteBoard}>Delete Board</button>
+      <div className="navBar">
+        <div className="titleContainer">
+          <div className="projectTitle">Public Kanban Board</div>
+          <div className="subTitle">
+            Powered by <a href="https://roomservice.dev">Room Service</a>.
+          </div>
+        </div>
 
-      {mappedBoards}
+        {/* <button onClick={createBoard}>Create Board</button>
+        <button onClick={deleteBoard}>Delete Board</button> */}
+        <Button onClick={createBoard} buttonTitle={"Create Board"} />
+        <Button onClick={deleteBoard} buttonTitle={"Delete Board"} />
+      </div>
+      <div className="kanbanContainer">
+        <div className="boardBlock">{mappedBoards}</div>
+        <div className="boardBlock"></div>
+        <div className="boardBlock"></div>
+        <div className="boardBlock"></div>
+      </div>
+
+      <style jsx>{`
+        .kanbanContainer {
+          display: flex;
+          flex-direction: row;
+        }
+        .boardBlock {
+          border-right: 2px dashed #599a5f;
+          min-width: 273px;
+          height: 100vh;
+          padding: 25px;
+        }
+        a:active {
+          color: #172b4d;
+        }
+        a:visited {
+          color: #172b4d;
+        }
+        .projectTitle {
+          color: #fff;
+          margin-right: 25px;
+          margin-bottom: 10px;
+          font-size: 35px;
+          font-weight: 900;
+        }
+        .titleContainer {
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-start;
+        }
+        .subTitle {
+          color: #fff;
+          font-size: 16px;
+        }
+        .navBar {
+          display: flex;
+          width: 100%;
+          padding: 20px;
+
+          flex-direction: row;
+          align-items: center;
+          border-bottom: 5px solid #599a5f;
+        }
+      `}</style>
+      <style jsx global>{`
+        html,
+        body {
+          margin: 0;
+          padding: 0;
+          height: 100%;
+          background-color: #6cbc73;
+          font-family: Arial;
+        }
+      `}</style>
     </div>
+  );
+};
+
+export default () => {
+  return (
+    <RoomServiceProvider authUrl="http://localhost:3000/api/roomservice">
+      <App />
+    </RoomServiceProvider>
   );
 };
 

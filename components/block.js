@@ -15,7 +15,7 @@ function Block(props) {
       // position={{ x: 100, y: 100 }}
       // defaultPosition={{ x: 100, y: 100 }}
       position={props.setPosition}
-      grid={[250, 250]}
+      grid={[326, 1]}
       onDrag={props.onDrag}
       bounds={props.bounds}
       cancel="strong"
@@ -28,17 +28,14 @@ function Block(props) {
             width: "100%",
             outline: "none",
             resize: "none",
-            backgroundColor: "blue",
-            color: "white",
+            backgroundColor: "#ebecf0",
+            color: "#172b4d",
             fontSize: "16px",
             cursor: "pointer",
-            border: "1px solid blue",
-            fontStyle: "Arial",
-            placeholder: {
-              color: "white"
-            }
+            border: "1px solid #ebecf0",
+            fontStyle: "Arial"
           }}
-          placeholder="Type anything here.."
+          placeholder="Write anything here.."
           type="text"
           value={props.blockValue}
           onChange={props.blockOnChange}
@@ -46,28 +43,18 @@ function Block(props) {
 
         <style jsx>{`
           .blockContainer {
-            background-color: blue;
+            background-color: #ebecf0;
             width: 250px;
-            min-height: 100px;
-            margin: 25px;
+            min-height: 70px;
             display: flex;
             padding: 20px 10px 20px 10px;
+            margin-bottom: 25px;
             justify-content: center;
             align-items: center;
             color: white;
             font-size: 20px;
             border-radius: 15px;
             font-family: Arial;
-          }
-          TextareaAutosize {
-            width: 100%;
-            background-color: black;
-            outline: none;
-            resize: none;
-            display: flex;
-          }
-          ::-webkit-textareaautosize-placeholder {
-            color: red;
           }
         `}</style>
       </div>
