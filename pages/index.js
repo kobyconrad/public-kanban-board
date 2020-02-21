@@ -6,14 +6,14 @@ import PointerSVG from "../components/cursors/PointerSVG";
 import useCursors from "../components/cursors/useCursors";
 
 // KOBY DO THIS PART! 🚀
-function MouseCursors(props) {
-  const mousePositions = useCursors(props.room);
+// function MouseCursors(props) {
+//   const mousePositions = useCursors(props.room);
 
-  // Steps: Can you render multiple <PointerSVG /> from
-  // this array of mousePositions?
+//   // Steps: Can you render multiple <PointerSVG /> from
+//   // this array of mousePositions?
 
-  return <PointerSVG x={50} y={300} fill={"#f6b93b"} />;
-}
+//   // return <PointerSVG x={50} y={300} fill={"#f6b93b"} />;
+// }
 
 const App = () => {
   const ROOM = "demo-kanban-board";
@@ -68,7 +68,7 @@ const App = () => {
   return (
     <div>
       {/* It doesn't matter where <MouseCursors /> goes */}
-      <MouseCursors room={ROOM} />
+      {/* <MouseCursors room={ROOM} /> */}
       <div className="navBar">
         <div className="titleContainer">
           <div className="projectTitle">Public Kanban Board</div>
