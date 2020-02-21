@@ -1,10 +1,23 @@
 import { useSharedState, RoomServiceProvider } from "@roomservice/react";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Block from "../components/block";
 import Button from "../components/button";
+import PointerSVG from "../components/cursors/PointerSVG";
+import useCursors from "../components/cursors/useCursors";
+
+// KOBY DO THIS PART! 🚀
+function MouseCursors(props) {
+  const mousePositions = useCursors(props.room);
+
+  // Steps: Can you render multiple <PointerSVG /> from
+  // this array of mousePositions?
+
+  return <PointerSVG x={50} y={30} fill={"#f6b93b"} />;
+}
 
 const App = () => {
-  const [sharedState, setSharedState] = useSharedState("demo-kanban-board");
+  const ROOM = "demo-kanban-board";
+  const [sharedState, setSharedState] = useSharedState(ROOM);
 
   function onDrag(e, position, index) {
     const { x, y } = position;
@@ -54,6 +67,8 @@ const App = () => {
 
   return (
     <div>
+      {/* It doesn't matter where <MouseCursors /> goes */}
+      <MouseCursors room={ROOM} />
       <div className="navBar">
         <div className="titleContainer">
           <div className="projectTitle">Public Kanban Board</div>
