@@ -12,7 +12,7 @@ function MouseCursors(props) {
   // Steps: Can you render multiple <PointerSVG /> from
   // this array of mousePositions?
 
-  return <PointerSVG x={50} y={30} fill={"#f6b93b"} />;
+  return <PointerSVG x={50} y={300} fill={"#f6b93b"} />;
 }
 
 const App = () => {
