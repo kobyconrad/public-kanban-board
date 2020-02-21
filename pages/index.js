@@ -133,7 +133,7 @@ const App = () => {
 
 export default () => {
   return (
-    <RoomServiceProvider authUrl="http://localhost:3000/api/roomservice">
+    <RoomServiceProvider authUrl="http://publickanbanboard.com/api/roomservice">
       <App />
     </RoomServiceProvider>
   );
